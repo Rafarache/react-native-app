@@ -7,9 +7,10 @@ const GoalList = props => {
 
     return (
         <FlatList
+        keyExtractor={(item, index) => item.id.toString()}
         data={props.calendarData.days}
         renderItem={({item}) =>
-            <GoalListDay name={item.day} id={item.id} />
+            <GoalListDay name={item.day} id={item.id} tarefas={item.tarefas} newTarefa={props.newTarefa} />
         }
         />
     )
