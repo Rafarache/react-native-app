@@ -5,7 +5,6 @@ import Goal from "./goal";
 import Separator from "./separator";
 
 const DayGoals = props => {
-
     if (props.tarefas.length !== 0) {
         return (
             <View style={styles.goals}>
@@ -14,7 +13,7 @@ const DayGoals = props => {
                 data={props.tarefas}
                 ItemSeparatorComponent={Separator}
                 renderItem={({item}) =>
-                    <Goal tarefa={item.tarefaName}/>
+                    <Goal tarefa={item.tarefaName} id={item.id} removeGoal={props.onRemoveGoal} day={props.day} />
                 }
                 />            
             </View>
@@ -34,9 +33,6 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         flexDirection:"row",
     },
-    emptyGoals: {
-
-    }
 })
 
 export default DayGoals;

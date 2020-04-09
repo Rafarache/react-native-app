@@ -41,6 +41,13 @@ export default function App() {
     }
   }
 
+  const removeGoalHandler = props => {
+    var aux = calendar;
+    aux[currentMonth].days[props.day].tarefas = aux[currentMonth].days[props.day].tarefas.filter((goal) =>goal.id !== props.id);
+    setNewTarefaInfo({day:"1",month:"1",isActive: false}) 
+    setCalendar(aux)
+  }
+
   const resetNewTarefa = () => {
     setNewTarefaInfo({day:"1",month:"1",isActive: false})  
   }
@@ -68,7 +75,7 @@ export default function App() {
     <View style={styles.screen}>
         <MonthSlector month={currentMonth} onSelectedMonth={selectedMonthHandler}/>
         <GoalInput visible={isAddMode} ableAddGoal={ableGoalHandler} onAddGoal={addGoalHandler} info={newTarefaInfo} modify={passInfoNewTarefa} />
-        <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa}/>
+        <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa} onRemoveGoal={removeGoalHandler} />
         <AddGoalButton onAddGoal={ableGoalHandler}  />
     </View>
   );

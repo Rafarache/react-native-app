@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 const MonthSelector = props => {
 
@@ -9,9 +9,13 @@ const MonthSelector = props => {
 
     return(
         <View style={styles.container} >
-            <Button title='<' onPress={props.onSelectedMonth.bind(this, -1)}/>
+            <TouchableOpacity style={styles.addView} onPress={props.onSelectedMonth.bind(this, -1)}>
+                <Text style={styles.plus}> {"<"} </Text>
+            </TouchableOpacity>
             <Text style={styles.text}>{months[props.month]}</Text>
-            <Button title='>' onPress={props.onSelectedMonth.bind(this, 1)} />
+            <TouchableOpacity style={styles.addView} onPress={props.onSelectedMonth.bind(this, 1)}>
+                <Text style={styles.plus}> {">"} </Text>
+            </TouchableOpacity>
         </View>  
     )
 }
@@ -30,7 +34,22 @@ const styles = StyleSheet.create({
         flex:1,
         textAlign: 'center',
         fontSize: 20,
-    }
+        color: '#DF9B6D',
+    },
+    addView: {
+        height: 25,
+        width: 25,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#DF9B6D',
+        justifyContent: 'center', 
+        alignItems: 'center' ,
+    },
+    plus: {
+        marginBottom: 4,
+        color: "#DF9B6D",
+        fontSize: 22,
+    },
 })
 
 export default MonthSelector;
