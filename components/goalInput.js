@@ -19,11 +19,7 @@ const GoalInput = props => {
 
     const goalNameInputHandler = enteredGoalName => {
         setEnteredGoalName(enteredGoalName);
-        console.log(props.info.day,props.info.month)
-
     }
-
-    console.log(props.info)
 
     if (props.info.isActive === false){
         return(

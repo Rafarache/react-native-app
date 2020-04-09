@@ -13,7 +13,7 @@ const DayGoals = props => {
                 data={props.tarefas}
                 ItemSeparatorComponent={Separator}
                 renderItem={({item}) =>
-                    <Goal tarefa={item.tarefaName} id={item.id} removeGoal={props.onRemoveGoal} day={props.day} />
+                    <Goal tarefa={item.tarefaName} id={item.id} removeGoal={props.onRemoveGoal} day={props.day} modify={props.modifyTarefa} status={item.isActive} />
                 }
                 />            
             </View>

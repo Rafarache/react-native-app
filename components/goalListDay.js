@@ -16,7 +16,7 @@ const GoalListDay = props => {
                     <Text style={styles.plus}>+</Text>
                 </TouchableOpacity>
             </View>
-            <DayGoals tarefas={props.tarefas} onRemoveGoal={props.removeGoal} day={props.id} />
+            <DayGoals tarefas={props.tarefas} onRemoveGoal={props.removeGoal} day={props.id}  modifyTarefa={props.modifyGoal} />
             <View style={styles.bar}></View>   
         </View>      
         )
@@ -32,7 +32,7 @@ const GoalListDay = props => {
                     <Text style={styles.plus}>+</Text>
                 </TouchableOpacity>
             </View>
-            <DayGoals tarefas={props.tarefas} onRemoveGoal={props.removeGoal} day={props.id} />
+            <DayGoals tarefas={props.tarefas} onRemoveGoal={props.removeGoal} day={props.id} modifyTarefa={props.modifyGoal} />
         </View> 
     )
 }

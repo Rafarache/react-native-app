@@ -3,8 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 
 const AddGoalButton = props => {
-
-
+    
     return (
         <TouchableOpacity 
         style={styles.button}

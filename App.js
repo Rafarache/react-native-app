@@ -13,8 +13,6 @@ export default function App() {
 
   var today = new Date();
   date=today.getDate() + "/"+ parseInt(today.getMonth()+1) +"/"+ today.getFullYear();
-  var counterTarefas = 0;
-
   let newCalendario = initCalendar()
 
   const [ calendar, setCalendar ] = useState(newCalendario);  
@@ -33,7 +31,7 @@ export default function App() {
   const addGoalHandler = props => {
     if (validTarefa(props) === true){
       var updateCalendar = calendar;
-      updateCalendar[parseInt(props.month,10)-1].days[(parseInt(props.day,10))-1].tarefas = [...calendar[(parseInt(props.month,10))-1].days[(parseInt(props.day,10))-1].tarefas, {tarefaName: props.name, id: counterTarefa}]
+      updateCalendar[parseInt(props.month,10)-1].days[(parseInt(props.day,10))-1].tarefas = [...calendar[(parseInt(props.month,10))-1].days[(parseInt(props.day,10))-1].tarefas, {tarefaName: props.name, id: counterTarefa, isActive:false}]
       setCalendar(updateCalendar);
       setIsAddMode(false);
       setCounterTarefa(counterTarefa + 1)
@@ -46,6 +44,23 @@ export default function App() {
     aux[currentMonth].days[props.day].tarefas = aux[currentMonth].days[props.day].tarefas.filter((goal) =>goal.id !== props.id);
     setNewTarefaInfo({day:"1",month:"1",isActive: false}) 
     setCalendar(aux)
+  }
+
+  const modifyGoal = props => {
+    var aux = calendar;
+    aux[currentMonth].days[props.day].tarefas = aux[currentMonth].days[props.day].tarefas.map(function(tarefa) {
+      var aux = tarefa;
+      if (props.id === tarefa.id){
+        aux.isActive = !aux.isActive;
+        return aux;
+      }
+      else {
+        return aux;
+      }
+    })
+    setCalendar(aux)
+    setNewTarefaInfo({day:"1",month:"1",isActive: false}) 
+
   }
 
   const resetNewTarefa = () => {
@@ -75,7 +90,7 @@ export default function App() {
     <View style={styles.screen}>
         <MonthSlector month={currentMonth} onSelectedMonth={selectedMonthHandler}/>
         <GoalInput visible={isAddMode} ableAddGoal={ableGoalHandler} onAddGoal={addGoalHandler} info={newTarefaInfo} modify={passInfoNewTarefa} />
-        <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa} onRemoveGoal={removeGoalHandler} />
+        <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa} onRemoveGoal={removeGoalHandler} modifyTarefa={modifyGoal} />
         <AddGoalButton onAddGoal={ableGoalHandler}  />
     </View>
   );
