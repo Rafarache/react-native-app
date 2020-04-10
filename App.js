@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View , StyleSheet, StatusBar} from 'react-native';
+import { View , StyleSheet, AsyncStorage} from 'react-native';
 
 import GoalList from './components/goalsList';
 import AddGoalButton from './components/addGoalButton';
@@ -15,11 +15,43 @@ export default function App() {
   date=today.getDate() + "/"+ parseInt(today.getMonth()+1) +"/"+ today.getFullYear();
   let newCalendario = initCalendar()
 
+  retrieveData = () => {
+    console.log("Getting data...")
+    AsyncStorage.getItem('data')
+  .then((value)=>{
+    const user = JSON.parse(value);
+    if (user === newCalendario){
+      console.log("Data is empyty")}
+    else {
+      console.log("Data obtained !!")}
+      setCalendar(user)
+    }
+  )
+  .catch((error)=>{
+  console.log(error);
+  })
+  }
+
+  const [ firstTest, setFirstTest ] = useState(false); 
   const [ calendar, setCalendar ] = useState(newCalendario);  
   const [ isAddMode, setIsAddMode ] = useState(false);
   const [ currentMonth, setCurrentMonth ] = useState(today.getMonth());
   const [ counterTarefa, setCounterTarefa ] = useState(0);
   const [ newTarefaInfo, setNewTarefaInfo ] = useState({day:"1",month:"1",isActive: false});
+  
+  if (firstTest === false){
+    if ( retrieveData() === null) {
+      AsyncStorage.setItem('data', JSON.stringify(newCalendario))
+      .then(()=>{
+      console.log('data saved');
+      })
+      .catch((error)=>{
+      console.log(error);
+      }) 
+    }
+    setFirstTest(true)
+  }
+
 
   const ableGoalHandler = () => {
     if(isAddMode === true){
@@ -36,6 +68,13 @@ export default function App() {
       setIsAddMode(false);
       setCounterTarefa(counterTarefa + 1)
       setNewTarefaInfo({day:"1",month:"1",isActive: false})  
+      AsyncStorage.setItem('data', JSON.stringify(updateCalendar))
+      .then(()=>{
+      console.log('data saved');
+      })
+      .catch((error)=>{
+      console.log(error);
+      }) 
     }
   }
 
@@ -44,6 +83,13 @@ export default function App() {
     aux[currentMonth].days[props.day].tarefas = aux[currentMonth].days[props.day].tarefas.filter((goal) =>goal.id !== props.id);
     setNewTarefaInfo({day:"1",month:"1",isActive: false}) 
     setCalendar(aux)
+    AsyncStorage.setItem('data', JSON.stringify(aux))
+    .then(()=>{
+    console.log('data saved');
+    })
+    .catch((error)=>{
+    console.log(error);
+    }) 
   }
 
   const modifyGoal = props => {
@@ -60,7 +106,13 @@ export default function App() {
     })
     setCalendar(aux)
     setNewTarefaInfo({day:"1",month:"1",isActive: false}) 
-
+    AsyncStorage.setItem('data', JSON.stringify(aux))
+    .then(()=>{
+    console.log('data saved');
+    })
+    .catch((error)=>{
+    console.log(error);
+    }) 
   }
 
   const resetNewTarefa = () => {
