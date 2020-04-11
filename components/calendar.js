@@ -13,7 +13,7 @@ const Calendar = props => {
             data={formatCalendar(props.month,props.data.days)}
             numColumns={7}
             renderItem={({item}) =>
-                <DayCalendar id={item.id} month={props.month}/>
+                <DayCalendar id={item.id} month={props.month} tarefas={item.tarefas}/>
             }
             />     
         </View>

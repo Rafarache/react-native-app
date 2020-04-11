@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View , StyleSheet, AsyncStorage} from 'react-native';
+import { View , StyleSheet, AsyncStorage, ScrollView} from 'react-native';
 
 import GoalList from './components/goalsList';
 import AddGoalButton from './components/addGoalButton';
@@ -157,6 +157,6 @@ const styles = StyleSheet.create({
         height: '100%',
         paddingTop: 24,
         paddingHorizontal: 10,
-        paddingBottom: 40,
+        paddingBottom: 0,
     }
 })

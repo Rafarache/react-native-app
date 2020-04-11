@@ -17,7 +17,6 @@ const GoalList = props => {
 
 const styles = StyleSheet.create({
     list: {
-
     },
 })
 
