@@ -11,6 +11,7 @@ import {initCalendar} from './script/initYear';
 import {validTarefa} from './script/validTarefa';
 
 export default function App() {
+  
 
   var today = new Date();
   date=today.getDate() + "/"+ parseInt(today.getMonth()+1) +"/"+ today.getFullYear();
@@ -27,6 +28,24 @@ export default function App() {
     else {
       console.log("Data obtained !!")}
       setCalendar(user)
+    }
+  )
+  .catch((error)=>{
+  console.log(error);
+  })
+  }
+
+  retrieveCounter = () => {
+    console.log("Getting data...")
+    AsyncStorage.getItem('counter')
+  .then((value)=>{
+    const user = JSON.parse(value);
+    if (user === null){
+      console.log("Data is empty")
+      return null}
+    else {
+      console.log("Data obtained !!")}
+      setCounterTarefa(user)
     }
   )
   .catch((error)=>{
@@ -51,9 +70,17 @@ export default function App() {
       console.log(error);
       }) 
     }
+    if ( retrieveCounter() === null) {
+      AsyncStorage.setItem('counter', JSON.stringify(counterTarefa))
+      .then(()=>{
+      console.log('data saved');
+      })
+      .catch((error)=>{
+      console.log(error);
+      }) 
+    }
     setFirstTest(true)
   }
-
 
   const ableGoalHandler = () => {
     if(isAddMode === true){
@@ -76,7 +103,14 @@ export default function App() {
       })
       .catch((error)=>{
       console.log(error);
-      }) 
+      })
+      AsyncStorage.setItem('counter', JSON.stringify(counterTarefa))
+      .then(()=>{
+      console.log('data saved');
+      })
+      .catch((error)=>{
+      console.log(error);
+      })
     }
   }
 
