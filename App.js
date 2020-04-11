@@ -26,7 +26,7 @@ export default function App() {
       console.log("Data is empty")
       return null}
     else {
-      console.log("Data obtained !!")}
+      console.log("Data calendar obtained !!")}
       setCalendar(user)
     }
   )
@@ -44,8 +44,9 @@ export default function App() {
       console.log("Data is empty")
       return null}
     else {
-      console.log("Data obtained !!")}
-      setCounterTarefa(user)
+      console.log("Data counter obtained !!")}
+      console.log(user)
+      setCounterTarefa(parseInt(user))
     }
   )
   .catch((error)=>{
@@ -64,7 +65,7 @@ export default function App() {
     if ( retrieveData() === null) {
       AsyncStorage.setItem('data', JSON.stringify(newCalendario))
       .then(()=>{
-      console.log('data saved');
+      console.log('Calendar saved');
       })
       .catch((error)=>{
       console.log(error);
@@ -73,7 +74,7 @@ export default function App() {
     if ( retrieveCounter() === null) {
       AsyncStorage.setItem('counter', JSON.stringify(counterTarefa))
       .then(()=>{
-      console.log('data saved');
+      console.log('Counter saved');
       })
       .catch((error)=>{
       console.log(error);
@@ -99,14 +100,14 @@ export default function App() {
       setNewTarefaInfo({day:"1",month:"1",isActive: false})  
       AsyncStorage.setItem('data', JSON.stringify(updateCalendar))
       .then(()=>{
-      console.log('data saved');
+      console.log('Calendar saved');
       })
       .catch((error)=>{
       console.log(error);
       })
-      AsyncStorage.setItem('counter', JSON.stringify(counterTarefa))
+      AsyncStorage.setItem('counter', JSON.stringify(counterTarefa +1))
       .then(()=>{
-      console.log('data saved');
+      console.log('Counter saved');
       })
       .catch((error)=>{
       console.log(error);
