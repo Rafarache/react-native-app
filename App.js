@@ -5,6 +5,7 @@ import GoalList from './components/goalsList';
 import AddGoalButton from './components/addGoalButton';
 import GoalInput from "./components/goalInput"
 import MonthSlector from './components/monthSelector'
+import Calendar from './components/calendar'
 
 import {initCalendar} from './script/initYear';
 import {validTarefa} from './script/validTarefa';
@@ -20,8 +21,9 @@ export default function App() {
     AsyncStorage.getItem('data')
   .then((value)=>{
     const user = JSON.parse(value);
-    if (user === newCalendario){
-      console.log("Data is empyty")}
+    if (user === null){
+      console.log("Data is empty")
+      return null}
     else {
       console.log("Data obtained !!")}
       setCalendar(user)
@@ -140,10 +142,11 @@ export default function App() {
 
   return(
     <View style={styles.screen}>
-        <MonthSlector month={currentMonth} onSelectedMonth={selectedMonthHandler}/>
-        <GoalInput visible={isAddMode} ableAddGoal={ableGoalHandler} onAddGoal={addGoalHandler} info={newTarefaInfo} modify={passInfoNewTarefa} />
-        <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa} onRemoveGoal={removeGoalHandler} modifyTarefa={modifyGoal} />
-        <AddGoalButton onAddGoal={ableGoalHandler}  />
+      <Calendar data={calendar[currentMonth]} month={currentMonth}/>
+      <MonthSlector month={currentMonth} onSelectedMonth={selectedMonthHandler}/>
+      <GoalInput visible={isAddMode} ableAddGoal={ableGoalHandler} onAddGoal={addGoalHandler} info={newTarefaInfo} modify={passInfoNewTarefa} />
+      <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa} onRemoveGoal={removeGoalHandler} modifyTarefa={modifyGoal} />
+      <AddGoalButton onAddGoal={ableGoalHandler}  />
     </View>
   );
 }
