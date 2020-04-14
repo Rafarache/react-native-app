@@ -1,42 +1,197 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, FlatList, Button } from 'react-native';
+import { View , StyleSheet, AsyncStorage, ScrollView} from 'react-native';
 
-import GoalItem from './componets/GoalItem';
-import GoalInput from './componets/GoalInput';
+import GoalList from './components/goalsList';
+import AddGoalButton from './components/addGoalButton';
+import GoalInput from "./components/goalInput"
+import MonthSlector from './components/monthSelector'
+import Calendar from './components/calendar'
 
+import {initCalendar} from './script/initYear';
+import {validTarefa} from './script/validTarefa';
 
 export default function App() {
-  const [courseGoals, setCourseGoals] = useState([]);
-  const [isAddMode, setIsAddMode] = useState(false)
+  
 
-  const addGoalHandler = goalTitle => {
-    setCourseGoals(currentGoals => [...currentGoals, { id: Math.random().toString(), value: goalTitle}]);
-    setIsAddMode(false);
+  var today = new Date();
+  date=today.getDate() + "/"+ parseInt(today.getMonth()+1) +"/"+ today.getFullYear();
+  let newCalendario = initCalendar()
+
+  retrieveData = () => {
+    console.log("Getting data...")
+    AsyncStorage.getItem('data')
+  .then((value)=>{
+    const user = JSON.parse(value);
+    if (user === null){
+      console.log("Data is empty")
+      return null}
+    else {
+      console.log("Data calendar obtained !!")}
+      setCalendar(user)
+    }
+  )
+  .catch((error)=>{
+  console.log(error);
+  })
   }
 
-  const removeGoalHandler = goalId => {
-    setCourseGoals(currentGoals => {
-      return currentGoals.filter((goal) =>goal.id !== goalId);
-    });
+  retrieveCounter = () => {
+    console.log("Getting data...")
+    AsyncStorage.getItem('counter')
+  .then((value)=>{
+    const user = JSON.parse(value);
+    if (user === null){
+      console.log("Data is empty")
+      return null}
+    else {
+      console.log("Data counter obtained !!")}
+      console.log(user)
+      setCounterTarefa(parseInt(user))
+    }
+  )
+  .catch((error)=>{
+  console.log(error);
+  })
   }
 
-  return (
-    <View style={styles.srceen}>
-      <Button title={'Add new'} onPress={() => setIsAddMode(true)}/>
-      <GoalInput visible={isAddMode} onAddGoal={addGoalHandler}/>
-      <FlatList
-      keyExtractor={(item, index) => item.id}
-      data={courseGoals}
-      renderItem={itemData => 
-        <GoalItem id={itemData.item.id} title={itemData.item.value} onDelete={removeGoalHandler}/>
+  const [ firstTest, setFirstTest ] = useState(false); 
+  const [ calendar, setCalendar ] = useState(newCalendario);  
+  const [ isAddMode, setIsAddMode ] = useState(false);
+  const [ currentMonth, setCurrentMonth ] = useState(today.getMonth());
+  const [ counterTarefa, setCounterTarefa ] = useState(0);
+  const [ newTarefaInfo, setNewTarefaInfo ] = useState({day:"1",month:"1",isActive: false});
+  
+  if (firstTest === false){
+    if ( retrieveData() === null) {
+      AsyncStorage.setItem('data', JSON.stringify(newCalendario))
+      .then(()=>{
+      console.log('Calendar saved');
+      })
+      .catch((error)=>{
+      console.log(error);
+      }) 
+    }
+    if ( retrieveCounter() === null) {
+      AsyncStorage.setItem('counter', JSON.stringify(counterTarefa))
+      .then(()=>{
+      console.log('Counter saved');
+      })
+      .catch((error)=>{
+      console.log(error);
+      }) 
+    }
+    setFirstTest(true)
+  }
+
+  const ableGoalHandler = () => {
+    if(isAddMode === true){
+      resetNewTarefa()
+    }
+    setIsAddMode(!isAddMode)
+  }
+
+  const addGoalHandler = props => {
+    if (validTarefa(props) === true){
+      var updateCalendar = calendar;
+      updateCalendar[parseInt(props.month,10)-1].days[(parseInt(props.day,10))-1].tarefas = [...calendar[(parseInt(props.month,10))-1].days[(parseInt(props.day,10))-1].tarefas, {tarefaName: props.name, id: counterTarefa, isActive:false}]
+      setCalendar(updateCalendar);
+      setIsAddMode(false);
+      setCounterTarefa(counterTarefa + 1)
+      setNewTarefaInfo({day:"1",month:"1",isActive: false})  
+      AsyncStorage.setItem('data', JSON.stringify(updateCalendar))
+      .then(()=>{
+      console.log('Calendar saved');
+      })
+      .catch((error)=>{
+      console.log(error);
+      })
+      AsyncStorage.setItem('counter', JSON.stringify(counterTarefa +1))
+      .then(()=>{
+      console.log('Counter saved');
+      })
+      .catch((error)=>{
+      console.log(error);
+      })
+    }
+  }
+
+  const removeGoalHandler = props => {
+    var aux = calendar;
+    aux[currentMonth].days[props.day].tarefas = aux[currentMonth].days[props.day].tarefas.filter((goal) =>goal.id !== props.id);
+    setNewTarefaInfo({day:"1",month:"1",isActive: false}) 
+    setCalendar(aux)
+    AsyncStorage.setItem('data', JSON.stringify(aux))
+    .then(()=>{
+    console.log('data saved');
+    })
+    .catch((error)=>{
+    console.log(error);
+    }) 
+  }
+
+  const modifyGoal = props => {
+    var aux = calendar;
+    aux[currentMonth].days[props.day].tarefas = aux[currentMonth].days[props.day].tarefas.map(function(tarefa) {
+      var aux = tarefa;
+      if (props.id === tarefa.id){
+        aux.isActive = !aux.isActive;
+        return aux;
       }
-      />
+      else {
+        return aux;
+      }
+    })
+    setCalendar(aux)
+    setNewTarefaInfo({day:"1",month:"1",isActive: false}) 
+    AsyncStorage.setItem('data', JSON.stringify(aux))
+    .then(()=>{
+    console.log('data saved');
+    })
+    .catch((error)=>{
+    console.log(error);
+    }) 
+  }
+
+  const resetNewTarefa = () => {
+    setNewTarefaInfo({day:"1",month:"1",isActive: false})  
+  }
+
+  const passInfoNewTarefa = props => {
+    let changeTo = {day:props.day, month:(currentMonth+1), isActive:props.isActive}
+    setNewTarefaInfo(changeTo)
+    ableGoalHandler(isAddMode)
+  }
+
+  const selectedMonthHandler = way => {
+    if (way === 1) {
+      if (currentMonth !== 11) {
+       setCurrentMonth(currentMonth + 1)        
+      }
+    }
+    else{
+      if (currentMonth !== 0) {
+        setCurrentMonth(currentMonth -1 )
+      }
+    }
+  }
+
+  return(
+    <View style={styles.screen}>
+      <Calendar data={calendar[currentMonth]} month={currentMonth}/>
+      <MonthSlector month={currentMonth} onSelectedMonth={selectedMonthHandler}/>
+      <GoalInput visible={isAddMode} ableAddGoal={ableGoalHandler} onAddGoal={addGoalHandler} info={newTarefaInfo} modify={passInfoNewTarefa} />
+      <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa} onRemoveGoal={removeGoalHandler} modifyTarefa={modifyGoal} />
+      <AddGoalButton onAddGoal={ableGoalHandler}  />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  srceen: {
-    padding: 30
-  },
-});
+    screen: {
+        width: '100%',
+        height: '100%',
+        paddingTop: 24,
+        paddingHorizontal: 10,
+        paddingBottom: 0,
+    }
+})
