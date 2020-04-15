@@ -17,7 +17,7 @@ const DayCalendar = props => {
         color= '#FFFF00'
     }
     else if (colorBackground == 3){
-        color= '#00FF00'
+        color= '#00a200'
     }
 
     var today = new Date();
