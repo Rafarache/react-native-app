@@ -1,3 +1,5 @@
+<img src="assets/icon.png" alt="drawing" width="100" />
+
 Aplicativo de tarefas desenvolvido com o framework React Native.
 
 ### Pre-requisitos
@@ -28,3 +30,6 @@ expo init my-new-project
 cd my-new-project
 expo start
 ```
+
+<img src="assets/splash.png" alt="drawing" width="200"/>
+
