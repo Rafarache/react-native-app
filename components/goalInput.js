@@ -21,6 +21,11 @@ const GoalInput = props => {
         setEnteredGoalName(enteredGoalName);
     }
 
+    const resetNameInputHandler = () => {
+        setEnteredGoalName('');
+    }
+
+
     if (props.info.isActive === false){
         return(
         <Modal visible={props.visible} animationType='styles' >
@@ -58,7 +63,10 @@ const GoalInput = props => {
                             </Picker>                        
                         </View>
                         <TouchableOpacity activeOpacity= {1} style={styles.addView}
-                        onPress={props.onAddGoal.bind(this, {name:enteredGoalName , day:dayValue, month:monthValue})}>
+                        onPress={() => {
+                            props.onAddGoal({name:enteredGoalName , day:dayValue, month:monthValue})
+                            resetNameInputHandler();
+                            }}>
                             <Text style={styles.addViewText} >Add</Text>
                         </TouchableOpacity >
                     </View>
@@ -74,7 +82,10 @@ const GoalInput = props => {
                     <View style={styles.internContainer}>
                         <TextInput style={styles.input} placeholder='Tarefa' onChangeText={goalNameInputHandler} value={enteredGoalName}/>
                         <TouchableOpacity activeOpacity= {1} style={styles.addView} 
-                        onPress={props.onAddGoal.bind(this, {name:enteredGoalName , day:props.info.day, month:props.info.month})}>
+                        onPress={ () => {
+                            props.onAddGoal({name:enteredGoalName , day:props.info.day, month:props.info.month});
+                            resetNameInputHandler();
+                            }}>
                             <Text style={styles.addViewText}>Add</Text>
                         </TouchableOpacity >
                     </View>
