@@ -20,10 +20,12 @@ const Goal = props => {
             <TouchableOpacity style={styles.tick} onPress={props.modify.bind(this, {day:props.day, isActive:props.status, id:props.id })}>
                 {props.status? <Text style={styles.tickText}>✓</Text> : <Text style={styles.plus}> </Text>}
             </TouchableOpacity>
-            { isEditting? <TextInput onSubmitEditing={() => {
+            { isEditting? 
+                <TextInput onSubmitEditing={() => {
                     setIsEditting(false)
                     props.modifyNameTarefa({day:props.day, id:props.id, name: enteredGoalName })}}            
-                    style={styles.text} onChangeText={goalNameInputHandler} value={enteredGoalName}/> 
+                    style={styles.text} onChangeText={goalNameInputHandler} value={enteredGoalName}
+                    autoFocus={true} /> 
                 :
                 <Text onLongPress={editNameTarefa} style={styles.text}>{enteredGoalName}</Text> }
             <TouchableOpacity style={styles.addView} onPress={props.removeGoal.bind(this, {id:props.id, day:props.day})}>

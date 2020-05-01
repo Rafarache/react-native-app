@@ -31,7 +31,7 @@ const GoalInput = props => {
         <Modal visible={props.visible} animationType='styles' >
             <View style={styles.modal}>
                     <View style={styles.internContainer}>
-                        <TextInput style={styles.input} placeholder='Tarefa' onChangeText={goalNameInputHandler} value={enteredGoalName}/>
+                        <TextInput style={styles.input} placeholder='Tarefa' onChangeText={goalNameInputHandler} value={enteredGoalName} autoFocus={true}/>
                         <View style={styles.pickersRow}>
                             <Picker
                                 mode='dropdown'
@@ -80,7 +80,7 @@ const GoalInput = props => {
         <Modal visible={props.visible} animationType='styles' >
             <View style={styles.modal}>
                     <View style={styles.internContainer}>
-                        <TextInput style={styles.input} placeholder='Tarefa' onChangeText={goalNameInputHandler} value={enteredGoalName}/>
+                        <TextInput style={styles.input} placeholder='Tarefa' onChangeText={goalNameInputHandler} value={enteredGoalName} autoFocus={true}/>
                         <TouchableOpacity activeOpacity= {1} style={styles.addView} 
                         onPress={ () => {
                             props.onAddGoal({name:enteredGoalName , day:props.info.day, month:props.info.month});
