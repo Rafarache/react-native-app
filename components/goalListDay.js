@@ -5,8 +5,14 @@ import DayGoals from "./dayGoals"
 
 const GoalListDay = props => {
 
+    if ((props.name ==="Sun") && (props.id!== 0)) {
+        var cond = true;
+    }
+    else {
+        var cond = false;
+    }
+
     // With bar bellow
-    if (((props.name ==="Sun")) && (props.id!== 0)){
         return (
         <View>
             <View style={styles.day} >
@@ -16,25 +22,12 @@ const GoalListDay = props => {
                     <Text style={styles.plus}>+</Text>
                 </TouchableOpacity>
             </View>
-            <DayGoals tarefas={props.tarefas} onRemoveGoal={props.removeGoal} day={props.id}  modifyTarefa={props.modifyGoal} />
-            <View style={styles.bar}></View>   
+            <DayGoals tarefas={props.tarefas} onRemoveGoal={props.removeGoal} day={props.id}  modifyTarefa={props.modifyGoal} modifyNameTarefa={props.modifyNameTarefa}/>
+            {cond ? <View style={styles.bar}></View> : null }   
         </View>      
         )
-    }
+    
 
-    // Without bar bellow
-    return(
-        <View>
-            <View style={styles.day} >
-                <Text style={styles.dayMounth}>{(props.id +1 ).toString()}</Text>
-                <Text style={styles.textWeek}>{props.name}</Text>
-                <TouchableOpacity style={styles.addView} onPress={props.newTarefa.bind(this, {day:(props.id +1), isActive:true})}>
-                    <Text style={styles.plus}>+</Text>
-                </TouchableOpacity>
-            </View>
-            <DayGoals tarefas={props.tarefas} onRemoveGoal={props.removeGoal} day={props.id} modifyTarefa={props.modifyGoal} />
-        </View> 
-    )
 }
 
 const styles = StyleSheet.create({
