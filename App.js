@@ -177,7 +177,7 @@ export default function App() {
 
   return(
     <View style={styles.screen}>
-      <Calendar data={calendar[currentMonth]} month={currentMonth}/>
+      <Calendar data={calendar[currentMonth]} month={currentMonth} addtarefa={passInfoNewTarefa}/>
       <MonthSlector month={currentMonth} onSelectedMonth={selectedMonthHandler}/>
       <GoalInput visible={isAddMode} ableAddGoal={ableGoalHandler} onAddGoal={addGoalHandler} info={newTarefaInfo} modify={passInfoNewTarefa} />
       <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa} onRemoveGoal={removeGoalHandler} modifyTarefa={modifyGoal} />

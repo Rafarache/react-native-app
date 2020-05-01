@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import { findDayColor } from '../script/findDayColor';
 
@@ -27,9 +27,15 @@ const DayCalendar = props => {
     }
 
 
+
+    const _onPressbuttom = () =>{
+        props.addtarefa({day:(props.id + 1),isActive: true})
+    }
+
     if( props.id !==false ){
         return(
-            <View style={{width: 30,
+            <TouchableOpacity onPress={_onPressbuttom}>
+                <View style={{width: 30,
                 height: 30,
                 margin: 5,
                 justifyContent: 'center',
@@ -39,8 +45,11 @@ const DayCalendar = props => {
                 borderWidth: border,
                 borderColor: '#000000'
                 }}>
+
                 <Text style={styles.text}>{props.id + 1}</Text>
-            </View>
+                </View>
+                
+            </TouchableOpacity>
         )              
     }
     else{
