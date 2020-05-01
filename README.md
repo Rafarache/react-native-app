@@ -15,8 +15,9 @@ Caso obtenha chocolatey, segue a instalação do NodeJs:
 ```
 choco install nodejs
 ```
+Do contrário, acesse https://nodejs.org/en/ para installar o Node JS
 
-Para instalar Expo-cli:
+Depois de installar o Node JS instale o Expo-cli:
 ```
 npm install expo-cli --global
 ```
@@ -25,11 +26,23 @@ npm install expo-cli --global
 
 Escolha uma pasta para armazenar o projeto e em seguida digite no terminal:
 
+Primeiro faça um clone do repositório na pasta desejada do seu computador
 ```
-expo init my-new-project
-cd my-new-project
+git clone https://github.com/Rafarache/ReactNativeApp.git
+```
+Em seguida entre na pasta do repositório no seu computador e execute o comando abaixo
+```
+npm install
+```
+### Executar o projeto
+
+Para executar o projeto basta estar na pasta do repositório e executar
+```
 expo start
 ```
+Em seguida, será aberto no seu navegador padão uma aba na porta http://localhost:19002/<br/>
+O app pode rodar no seu próprio celular ou em um emulador no computador.<br/>
+No celular basta baixar o aplicativo Expo na Play Store e pegar o QRCODE da aba aberta no navegador. O dowload do App será em seguida feito.<br/>
 
 ### Download APK
 
