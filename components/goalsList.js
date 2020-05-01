@@ -9,7 +9,7 @@ const GoalList = props => {
         keyExtractor={(item, index) => item.id.toString()}
         data={props.calendarData.days}
         renderItem={({item}) =>
-            <GoalListDay name={item.day} id={item.id} tarefas={item.tarefas} newTarefa={props.newTarefa} removeGoal={props.onRemoveGoal} modifyGoal={props.modifyTarefa}/>
+            <GoalListDay name={item.day} id={item.id} tarefas={item.tarefas} newTarefa={props.newTarefa} removeGoal={props.onRemoveGoal} modifyGoal={props.modifyTarefa} modifyNameTarefa={props.modifyNameTarefa} />
         }
         />
     )

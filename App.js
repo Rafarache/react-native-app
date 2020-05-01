@@ -15,7 +15,7 @@ export default function App() {
 
   var today = new Date();
   date=today.getDate() + "/"+ parseInt(today.getMonth()+1) +"/"+ today.getFullYear();
-  let newCalendario = initCalendar()
+
 
   retrieveData = () => {
     console.log("Getting data...")
@@ -28,6 +28,8 @@ export default function App() {
     else {
       console.log("Data calendar obtained !!")}
       setCalendar(user)
+      // Uncomment to reset calendar data 
+      // setCalendar(initCalendar())
     }
   )
   .catch((error)=>{
@@ -55,11 +57,12 @@ export default function App() {
   }
 
   const [ firstTest, setFirstTest ] = useState(false); 
-  const [ calendar, setCalendar ] = useState(newCalendario);  
+  const [ calendar, setCalendar ] = useState(initCalendar());  
   const [ isAddMode, setIsAddMode ] = useState(false);
   const [ currentMonth, setCurrentMonth ] = useState(today.getMonth());
   const [ counterTarefa, setCounterTarefa ] = useState(0);
   const [ newTarefaInfo, setNewTarefaInfo ] = useState({day:"1",month:"1",isActive: false});
+
   
   if (firstTest === false){
     if ( retrieveData() === null) {
@@ -81,6 +84,7 @@ export default function App() {
       }) 
     }
     setFirstTest(true)
+    // setCalendar(initCalendar())
   }
 
   const ableGoalHandler = () => {
@@ -128,6 +132,24 @@ export default function App() {
     console.log(error);
     }) 
   }
+  
+  const updateNameTarefa = props => {
+
+    var aux = calendar;
+    var length = aux[currentMonth].days[props.day].tarefas.length
+    for (var i = 0;i<length;i++) {
+      if (aux[currentMonth].days[props.day].tarefas[i].id === props.id){     
+        aux[currentMonth].days[props.day].tarefas[i].tarefaName = props.name;}
+    }
+    setCalendar(aux);
+    AsyncStorage.setItem('data', JSON.stringify(aux))
+    .then(()=>{
+    console.log('data saved');
+    })
+    .catch((error)=>{
+    console.log(error);
+    }) 
+  }
 
   const modifyGoal = props => {
     var aux = calendar;
@@ -156,6 +178,11 @@ export default function App() {
     setNewTarefaInfo({day:"1",month:"1",isActive: false})  
   }
 
+  const resetCalndar = () => {
+    let resetCalendario = initCalendar()
+    setCalendar(resetCalendario)
+  }
+
   const passInfoNewTarefa = props => {
     let changeTo = {day:props.day, month:(currentMonth+1), isActive:props.isActive}
     setNewTarefaInfo(changeTo)
@@ -175,12 +202,13 @@ export default function App() {
     }
   }
 
+
   return(
     <View style={styles.screen}>
       <Calendar data={calendar[currentMonth]} month={currentMonth}/>
       <MonthSlector month={currentMonth} onSelectedMonth={selectedMonthHandler}/>
       <GoalInput visible={isAddMode} ableAddGoal={ableGoalHandler} onAddGoal={addGoalHandler} info={newTarefaInfo} modify={passInfoNewTarefa} />
-      <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa} onRemoveGoal={removeGoalHandler} modifyTarefa={modifyGoal} />
+      <GoalList calendarData={calendar[currentMonth]} newTarefa={passInfoNewTarefa} onRemoveGoal={removeGoalHandler} modifyTarefa={modifyGoal} modifyNameTarefa={updateNameTarefa}/>
       <AddGoalButton onAddGoal={ableGoalHandler}  />
     </View>
   );

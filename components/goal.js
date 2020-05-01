@@ -1,34 +1,38 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 
 
 const Goal = props => {
-    if (props.status === false){
-        return (
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.tick} onPress={props.modify.bind(this, {day:props.day, isActive:props.status, id:props.id })}>
-                    <Text style={styles.plus}> </Text>
-                </TouchableOpacity>
-                <Text style={styles.text}>{props.tarefa}</Text>   
-                <TouchableOpacity style={styles.addView} onPress={props.removeGoal.bind(this, {id:props.id, day:props.day})}>
-                    <Text style={styles.plus}>x</Text>
-                </TouchableOpacity>
-            </View>
-        )
+
+    const goalNameInputHandler = enteredGoalName => {
+        setEnteredGoalName(enteredGoalName);
     }
-    else{
-        return (
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.tick} onPress={props.modify.bind(this, {day:props.day, isActive:props.status, id:props.id })}>
-                    <Text style={styles.tickText}>✓</Text>
-                </TouchableOpacity>
-                <Text style={styles.text}>{props.tarefa}</Text>   
-                <TouchableOpacity style={styles.addView} onPress={props.removeGoal.bind(this, {id:props.id, day:props.day})}>
-                    <Text style={styles.plus}>x</Text>
-                </TouchableOpacity>
-            </View>
-        )
+
+    const [enteredGoalName, setEnteredGoalName] = useState(props.tarefa);
+    const [isEditting, setIsEditting] = useState(false);
+    
+    const editNameTarefa = () => {
+        setIsEditting(true)
     }
+
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity style={styles.tick} onPress={props.modify.bind(this, {day:props.day, isActive:props.status, id:props.id })}>
+                {props.status? <Text style={styles.tickText}>✓</Text> : <Text style={styles.plus}> </Text>}
+            </TouchableOpacity>
+            { isEditting? 
+                <TextInput onSubmitEditing={() => {
+                    setIsEditting(false)
+                    props.modifyNameTarefa({day:props.day, id:props.id, name: enteredGoalName })}}            
+                    style={styles.text} onChangeText={goalNameInputHandler} value={enteredGoalName}
+                    autoFocus={true} /> 
+                :
+                <Text onLongPress={editNameTarefa} style={styles.text}>{enteredGoalName}</Text> }
+            <TouchableOpacity style={styles.addView} onPress={props.removeGoal.bind(this, {id:props.id, day:props.day})}>
+                <Text style={styles.plus}>x</Text>
+            </TouchableOpacity>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
