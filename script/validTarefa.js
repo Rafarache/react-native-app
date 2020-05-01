@@ -6,7 +6,7 @@ function  validTarefa (props) {
         alert("No tarefa my bro");
         return false
     }
-    else if(!(parseInt(props.day,10) < nDays[parseInt(props.month,10)-1])){
+    else if(!(parseInt(props.day,10) <= nDays[parseInt(props.month,10)-1])){
         alert("Invalid date my brother");
         return false
     }
