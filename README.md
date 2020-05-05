@@ -5,7 +5,8 @@ Aplicativo de tarefas desenvolvido com o framework React Native.
 ### Pre-requisitos
 
 É necessário ter instalado:
-- NodeJs
+- Git
+- NodeJs (Versão LTS)
 - Expo-cli
 
 
@@ -15,9 +16,9 @@ Caso obtenha chocolatey, segue a instalação do NodeJs:
 ```
 choco install nodejs
 ```
-Do contrário, acesse https://nodejs.org/en/ para installar o Node JS
+Do contrário, acesse https://nodejs.org/en/ para installar o Node JS versão LTS
 
-Depois de installar o Node JS instale o Expo-cli:
+Depois de installar o Node JS instale o Expo-cli, para isso abra o seu terminal e digite:
 ```
 npm install expo-cli --global
 ```
