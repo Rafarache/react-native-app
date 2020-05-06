@@ -95,7 +95,7 @@ export default function App() {
   }
 
   const addGoalHandler = props => {
-    if (validTarefa(props) === true){
+    if (validTarefa(props,true) === true){
       var updateCalendar = calendar;
       updateCalendar[parseInt(props.month,10)-1].days[(parseInt(props.day,10))-1].tarefas = [...calendar[(parseInt(props.month,10))-1].days[(parseInt(props.day,10))-1].tarefas, {tarefaName: props.name, id: counterTarefa, isActive:false}]
       setCalendar(updateCalendar);

@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import { View , StyleSheet, TouchableOpacity, TextInput, Modal, Picker, Text} from 'react-native';
+import {validTarefa} from '../script/validTarefa'
 
 import AddGoalButton from './addGoalButton';
 
@@ -21,10 +22,17 @@ const GoalInput = props => {
         setEnteredGoalName(enteredGoalName);
     }
 
-    const resetNameInputHandler = () => {
-        setEnteredGoalName('');
+    const resetNameInputHandler = (props) => {
+        if (validTarefa(props,false)){
+            setEnteredGoalName('');
+        }
     }
 
+    const checkName = () => {
+        if(enteredGoalName.length !== 0) {
+            setEnteredGoalName('')
+        }
+    }
 
     if (props.info.isActive === false){
         return(
@@ -65,7 +73,7 @@ const GoalInput = props => {
                         <TouchableOpacity activeOpacity= {1} style={styles.addView}
                         onPress={() => {
                             props.onAddGoal({name:enteredGoalName , day:dayValue, month:monthValue})
-                            resetNameInputHandler();
+                            resetNameInputHandler({name:enteredGoalName , day:dayValue, month:monthValue});
                             }}>
                             <Text style={styles.addViewText} >Add</Text>
                         </TouchableOpacity >
@@ -84,7 +92,7 @@ const GoalInput = props => {
                         <TouchableOpacity activeOpacity= {1} style={styles.addView} 
                         onPress={ () => {
                             props.onAddGoal({name:enteredGoalName , day:props.info.day, month:props.info.month});
-                            resetNameInputHandler();
+                            checkName()
                             }}>
                             <Text style={styles.addViewText}>Add</Text>
                         </TouchableOpacity >
