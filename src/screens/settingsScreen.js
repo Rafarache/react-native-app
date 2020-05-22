@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import { Text, View } from 'react-native';
 
-export default class Setting_Screen extends Component {
+export default class SettingScreen extends Component {
 
     constructor () {
         super();

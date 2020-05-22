@@ -6,8 +6,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import COLORS from './src/themes/colors'
 
-import Home_Screen from './src/screens/home_screen';
-import Settings_Screen from './src/screens/settings_screen';
+import HomeScreen from './src/screens/homeScreen';
+import SettingsScreen from './src/screens/settingsScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -38,8 +38,8 @@ export default function App() {
             inactiveTintColor: 'gray',
           }}
         >
-          <Tab.Screen name="Home" component={Home_Screen} />
-          <Tab.Screen name="Settings" component={Settings_Screen} />
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </>

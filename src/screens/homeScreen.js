@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 
 import { Text, View, AsyncStorage} from 'react-native';
 
-import SetData from '../async-storage/_storeData'
+// import SaveData from '../async-storage/_storeData'
+// SaveData._storeData('Home','@String')
 
-export default class Home_Screen extends Component {
+
+export default class HomeScreen extends Component {
 
     constructor () {
         super();
