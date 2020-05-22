@@ -1,33 +1,14 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import COLORS from './src/themes/colors'
 
-import GoalList from './src/components/goalsList';
-import AddGoalButton from './src/components/addGoalButton';
-import GoalInput from "./src/components/goalInput"
-import MonthSlector from './src/components/monthSelector'
-import Calendar from './src/components/calendar'
+import Home_Screen from './src/screens/home_screen';
+import Settings_Screen from './src/screens/settings_screen';
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
 
 const Tab = createBottomTabNavigator();
 
@@ -49,7 +30,6 @@ export default function App() {
                 iconName = focused ? 'ios-list-box' : 'ios-list';
               }
 
-              // You can return any component that you like here!
               return <Ionicons name={iconName} size={size} color={color} />;
             },
           })}
@@ -58,8 +38,8 @@ export default function App() {
             inactiveTintColor: 'gray',
           }}
         >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
+          <Tab.Screen name="Home" component={Home_Screen} />
+          <Tab.Screen name="Settings" component={Settings_Screen} />
         </Tab.Navigator>
       </NavigationContainer>
     </>

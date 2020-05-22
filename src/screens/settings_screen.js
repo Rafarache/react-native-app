@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import { Text, View } from 'react-native';
 
-export default class Home_Screen extends Component {
+export default class Setting_Screen extends Component {
 
     constructor () {
         super();
@@ -14,7 +14,7 @@ export default class Home_Screen extends Component {
     render () {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home_Screen</Text>
+            <Text>Setting_Screen</Text>
         </View>
         );
     }
