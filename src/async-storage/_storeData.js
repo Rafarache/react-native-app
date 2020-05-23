@@ -4,24 +4,24 @@ async function _storeData(value, key) {
 
   let valueSaved
 
-  if (typeof value === 'object') {
+  if (typeof value !== 'string') {
     valueSaved = JSON.stringify(value)
   }
   else {
-  valueSaved = value
+   valueSaved = value
   }
 
   try {
     await AsyncStorage.setItem(key, valueSaved);
-    console.log(valueSaved)
-    console.log("Data stored")
+      console.log(valueSaved)
+      console.log("Data stored")
   } catch (error) {
-    console.log("Erro storing data")
+      console.log("Erro storing data")
   }
   
 };
 
 export default 
 {
-    _storeData
+  _storeData
 }

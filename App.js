@@ -1,20 +1,48 @@
-import * as React from 'react';
+import React, {Component} from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+//CONSTANTS
 import COLORS from './src/themes/colors'
 
+//SCREENS
 import HomeScreen from './src/screens/homeScreen';
 import SettingsScreen from './src/screens/settingsScreen';
 
+//ASYNC STORAGE
+import { AsyncStorage } from 'react-native';
+import SaveData from './src/async-storage/_storeData'
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+export default class App extends Component {
+
+  componentWillMount() {
+    this.checkData('@ToDo')
+  }
+
+  checkData = async (key) => {
+    try {
+        const item = await AsyncStorage.getItem(key)
+        if (item !== null) {
+        }
+    } catch (e) {
+      console.error('Failed to load .')
+      this.initData()
+    }
+  }
+
+  initData() {
+    SaveData._storeData([],'@DailyToDo')
+    SaveData._storeData([],'@ToDo')
+  }
+
+  render () {
 
   return(
+
     <>
       <NavigationContainer>
         <Tab.Navigator
@@ -44,4 +72,6 @@ export default function App() {
       </NavigationContainer>
     </>
   );
+
+  }
 }

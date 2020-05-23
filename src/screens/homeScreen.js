@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 
-import { Text, View, AsyncStorage} from 'react-native';
+import styled from 'styled-components/native'
+import { Text, View, AsyncStorage, TextInput} from 'react-native';
 
 // import SaveData from '../async-storage/_storeData'
 // SaveData._storeData('Home','@String')
-
 
 export default class HomeScreen extends Component {
 
     constructor () {
         super();
         this.state = {
-            string: 'oi'
+            string: ''
         };
     }
 
@@ -19,11 +19,18 @@ export default class HomeScreen extends Component {
         this.load('@String')
     }
 
+    componentWillUnmount() {
+
+    }
+
     load = async (key) => {
         try {
             const name = await AsyncStorage.getItem(key)
             if (name !== null) {
-                this.setState({string: name})
+                this.setState({
+                    string: name,
+                    name: ''
+                })
             }
         } catch (e) {
           console.error('Failed to load .')
