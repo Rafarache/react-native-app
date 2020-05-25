@@ -1,35 +1,40 @@
 import React, {Component} from 'react';
 
-import styled from 'styled-components/native'
-import { Text, View, AsyncStorage, TextInput} from 'react-native';
+import { AsyncStorage} from 'react-native';
 
-// import SaveData from '../async-storage/_storeData'
-// SaveData._storeData('Home','@String')
+//CONSTANTS
+//
+
+//COMPONENTS
+import {ScreenContainer} from '../themes/screen'
+
+//ASYNC STORAGE
+//
 
 export default class HomeScreen extends Component {
 
     constructor () {
         super();
         this.state = {
-            string: ''
+            toDo: []
         };
     }
 
     componentWillMount() {
-        this.load('@String')
+        this.load('@ToDo')
     }
 
     componentWillUnmount() {
 
     }
 
+    //  Load data
     load = async (key) => {
         try {
-            const name = await AsyncStorage.getItem(key)
-            if (name !== null) {
+            const item = await AsyncStorage.getItem(key)
+            if (item !== null) {
                 this.setState({
-                    string: name,
-                    name: ''
+                    toDo: item,
                 })
             }
         } catch (e) {
@@ -40,9 +45,9 @@ export default class HomeScreen extends Component {
     render () {
 
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>{this.state.string}</Text>
-            </View>
+            <ScreenContainer >
+                
+            </ScreenContainer>
             );
         }
     }

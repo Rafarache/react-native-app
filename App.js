@@ -23,26 +23,28 @@ export default class App extends Component {
     this.checkData('@ToDo')
   }
 
+  //  Check if there is previus data in phone
   checkData = async (key) => {
     try {
-        const item = await AsyncStorage.getItem(key)
-        if (item !== null) {
-        }
+      const item = await AsyncStorage.getItem(key)
+      if (item !== null) {
+      //  Does nothing 
+      }
     } catch (e) {
+      //  If not, initialize data 
       console.error('Failed to load .')
       this.initData()
     }
   }
 
+  //  Inicialize data
   initData() {
     SaveData._storeData([],'@DailyToDo')
     SaveData._storeData([],'@ToDo')
   }
 
   render () {
-
   return(
-
     <>
       <NavigationContainer>
         <Tab.Navigator
@@ -71,7 +73,5 @@ export default class App extends Component {
         </Tab.Navigator>
       </NavigationContainer>
     </>
-  );
-
-  }
+  );}
 }
