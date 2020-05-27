@@ -1,10 +1,12 @@
 import styled from 'styled-components/native'
+import {StatusBar} from 'react-native';
+
+const padding = '10';
 
 export const ScreenContainer = styled.View`
 
-    padding-top: 24;
-    padding-left: 10;
-    padding-right: 10;
-    padding-bottom: 0;
-
+    padding-top: ${StatusBar.currentHeight + parseInt(padding)}px;
+    padding-left: ${padding}px;
+    padding-right: ${padding}px;
+    padding-bottom: 0px;
 `;
