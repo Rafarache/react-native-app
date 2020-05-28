@@ -4,14 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-//CONSTANTS
+//  CONSTANTS
 import COLORS from './src/themes/colors'
 
-//SCREENS
+//  SCREENS
 import HomeScreen from './src/screens/homeScreen';
 import SettingsScreen from './src/screens/settingsScreen';
 
-//ASYNC STORAGE
+//  ASYNC STORAGE
 import { AsyncStorage } from 'react-native';
 import SaveData from './src/async-storage/_storeData'
 
