@@ -30,8 +30,11 @@ function  generateMonthToDo (id, toDo) {
 
     // Fills the month with its ToDo
     for (var x=0; x<nDays[id]; x++){
-        toDo_Day = toDo.filter(function(item) {
+        toDo_Day = toDo.filter
+        (function(item) {
             return item.day == x;
+        }).filter(function(item) {
+            return item.month == id;
         });
         // Each day was an id , a vector of Todo's and a name
         daysArray=[...daysArray, {name:dayNames[counter], id:x, toDo_Array:toDo_Day}];
