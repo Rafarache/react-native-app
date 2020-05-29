@@ -22,14 +22,10 @@ function  generateMonthToDo (id, toDo) {
     var toDo_Day=  toDo;
     // Control the begining day of each month
     let counter = initialDayMonth[id];
-    // Sort Array of ToDo
-    // let new_ToDo = toDo
-    // new_ToDo.sort(function(a, b) {
-    //     return a.day - b.day;
-    // });
 
     // Fills the month with its ToDo
     for (var x=0; x<nDays[id]; x++){
+        //  Filter day and month
         toDo_Day = toDo.filter
         (function(item) {
             return item.day == x;
