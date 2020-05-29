@@ -100,8 +100,7 @@ export default class ToDo_Item extends Component {
                     autoFocus={true}
                     value={this.state.name}
                     onChangeText={this.handleNameInput}
-                    onSubmitEditing={() => 
-                                this.setIsEditing(false)}
+                    onSubmitEditing={() => this.setIsEditing(false)}
                 />
                 : <Name 
                     children={this.state.name}
