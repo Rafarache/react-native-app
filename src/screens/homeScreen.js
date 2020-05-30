@@ -71,13 +71,11 @@ export default class HomeScreen extends Component {
     
     //  Handle the change of month the user has on screen
     handleChangeMonth(number) {
-        console.log('vrau')
         let nextNumber = this.state.month + number;
 
         //  Check if the next month exist ( not before Jan or after Dec)
         if (validChangeMonth(nextNumber)) {
             this.setState({month: nextNumber})
-            console.log(this.state.month)
         }
     }
 

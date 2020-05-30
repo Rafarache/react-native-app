@@ -7,7 +7,7 @@ import ToDo_Day from './toDo_Day'
 const ToDo_Month = props => {
     return (
         <ScrollView
-            showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         >
             <FlatList
             keyExtractor={(item) => item.id.toString()}
