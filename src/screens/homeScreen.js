@@ -42,6 +42,10 @@ export default class HomeScreen extends Component {
         this.handleRenameToDo = this.handleRenameToDo.bind(this)
     }
 
+    componentDidUpdate() {
+        console.log(this.state.toDo)
+    }
+
     componentWillMount() {
         ///this.load('@ToDo')
         //  Set initial month as the users calendar current month
@@ -82,7 +86,7 @@ export default class HomeScreen extends Component {
         let newToDo = this.state.toDo
         newToDo.push(toDo)
         this.setState({toDo: newToDo})
-        this.setState({counter: this.state.couter + 1})
+        this.setState({counter: this.state.counter + 1})
     }
 
     //  Handle remove toDo
