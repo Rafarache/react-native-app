@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native'
 
 //  CONSTANTS
@@ -52,12 +51,12 @@ const MonthSelector = props => {
 
     return(
         <Container>
-            <Button>
-                <Button_Text onPress={props.handleChangeMonth.bind(this, -1)}>{"<"}</Button_Text>
+            <Button onPress={props.handleChangeMonth.bind(this, -1)}>
+                <Button_Text >{"<"}</Button_Text>
             </Button>
             <Month>{months[props.month]}</Month>
-            <Button>
-                <Button_Text onPress={props.handleChangeMonth.bind(this, 1)}>{">"}</Button_Text>
+            <Button onPress={props.handleChangeMonth.bind(this, 1)}>
+                <Button_Text>{">"}</Button_Text>
             </Button>
         </Container>  
     )

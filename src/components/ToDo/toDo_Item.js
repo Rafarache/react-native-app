@@ -67,28 +67,30 @@ export default class ToDo_Item extends Component {
             id: props.id,
             isEditig: false,
 
-            f_remove: null
+            f_remove: null,
+            f_rename: null
         };
     }
 
+    //  Get handle functions drom context
     static contextType = Context;
     componentWillMount(){
         const value = this.context;
         this.setState({f_remove : value.handleRemoveToDo})
+        this.setState({f_rename: value.handleRenameToDo})
       }
-
-    componentDidUpdate() {
-        console.log(this.state.name)
-    }
 
     setIsEditing = (bool) => {
         this.setState({ isEditig: bool })
     }
 
+    //  If the name is being modified, update in ToDo_item and in screen
     handleNameInput = (name) => {
         this.setState({ name: name })
+        this.state.f_rename(name,this.state.id)
     }
 
+    //  Save name if enter id pressed
     handleSubmit = () => {
         this.setState({ name: name })
     }
@@ -119,11 +121,14 @@ export default class ToDo_Item extends Component {
                     onLongPress={() => this.setIsEditing(true)}
                 />
             }
+
+            {/* Delete toDo button */}
             <Plus
                 onPress={this.state.f_remove.bind(this, this.state.id)}
             >
                 <Icon name="ios-close-circle-outline" size={30} color={COLORS.WHITE}/>
             </Plus>
+            
         </Container>
         )
     }

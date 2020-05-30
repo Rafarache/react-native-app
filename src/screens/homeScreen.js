@@ -31,18 +31,19 @@ export default class HomeScreen extends Component {
         super();
         this.state = {
             toDo: [],
-            month: 0
+            month: 0,
+            counter: 0
         };
+
+        //  Bind handle functions
         this.handleChangeMonth = this.handleChangeMonth.bind(this)
         this.handleAddToDo = this.handleAddToDo.bind(this)
         this.handleRemoveToDo = this.handleRemoveToDo.bind(this)
-
-
+        this.handleRenameToDo = this.handleRenameToDo.bind(this)
     }
 
     componentWillMount() {
         ///this.load('@ToDo')
-        this.setState({toDo: [{name: 'asas', id:1, status:true, day:1, month:2},{name: 'asas', id:2, status:true, day:0, month: 4}]})
         //  Set initial month as the users calendar current month
         let today = new Date();
         let month =  parseInt(today.getMonth())
@@ -55,7 +56,7 @@ export default class HomeScreen extends Component {
             const item = await AsyncStorage.getItem(key)
             if (item !== null) {
                 this.setState({
-                    toDo: item,
+                    toDo: item
                 })
 
             }
@@ -66,26 +67,42 @@ export default class HomeScreen extends Component {
     
     //  Handle the change of month the user has on screen
     handleChangeMonth(number) {
+        console.log('vrau')
         let nextNumber = this.state.month + number;
 
         //  Check if the next month exist ( not before Jan or after Dec)
         if (validChangeMonth(nextNumber)) {
             this.setState({month: nextNumber})
+            console.log(this.state.month)
         }
     }
 
+    //  Handle add new ToDo
     handleAddToDo(toDo) {
         let newToDo = this.state.toDo
         newToDo.push(toDo)
+        this.setState({toDo: newToDo})
+        this.setState({counter: this.state.couter + 1})
     }
 
+    //  Handle remove toDo
     handleRemoveToDo(toDo_id) {
         let newToDo = this.state.toDo
         newToDo = newToDo.filter(function(item) {
             return item.id != toDo_id
         })
-        console.log(newToDo)
         this.setState({toDo: newToDo})
+    }
+
+    //  Handle if the name of a ToDo is being updated
+    handleRenameToDo(name,id) {
+        let updateToDo = this.state.toDo.filter(function(item) {
+            if (item.id == id) {
+                item.name = name
+            }
+            return item
+        })
+        this.setState({toDo: updateToDo})
     }
 
     render () {
@@ -94,6 +111,9 @@ export default class HomeScreen extends Component {
                 <ContextProvider
                     handleAddToDo={this.handleAddToDo}
                     handleRemoveToDo={this.handleRemoveToDo}
+                    handleRenameToDo={this.handleRenameToDo}
+                    getMonth={this.state.month}
+                    getCounter={this.state.counter}
                 >
                     <MonthSelector 
                         month={this.state.month}
