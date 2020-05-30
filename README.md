@@ -1,5 +1,7 @@
 <img src="assets/icon.png" alt="drawing" width="100" />
 
+<img src="https://img.shields.io/badge/Version-1.0.0-green.svg" alt="Version">
+
 Aplicativo de tarefas desenvolvido com o framework React Native.
 
 ### Pre-requisitos
