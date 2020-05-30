@@ -29,7 +29,11 @@ const ToDo_List = props => {
             data={props.toDo_Array}
             ItemSeparatorComponent={Separator}
             renderItem={({item}) =>
-                <ToDo_Item name={item.name} status={item.status} />
+                <ToDo_Item
+                    name={item.name}
+                    status={item.status}
+                    id={item.id}
+                />
             }
             />            
         </Container>

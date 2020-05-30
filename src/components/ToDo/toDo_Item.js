@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, useContext} from 'react';
 import styled from 'styled-components/native'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 //  CONSTANTS
 import COLORS from '../../themes/colors' 
+
+//  CONTEXT
+import {Context} from '../../context/context'
 
 // STYLED COMPONENTS
 const Container = styled.View`
@@ -61,9 +64,18 @@ export default class ToDo_Item extends Component {
         this.state = {
             name: props.name,
             status: props.status,
-            isEditig: false
+            id: props.id,
+            isEditig: false,
+
+            f_remove: null
         };
     }
+
+    static contextType = Context;
+    componentWillMount(){
+        const value = this.context;
+        this.setState({f_remove : value.handleRemoveToDo})
+      }
 
     componentDidUpdate() {
         console.log(this.state.name)
@@ -82,7 +94,7 @@ export default class ToDo_Item extends Component {
     }
     
     render () {
-
+        
         return (
         <Container>
             <Tick>
@@ -107,7 +119,9 @@ export default class ToDo_Item extends Component {
                     onLongPress={() => this.setIsEditing(true)}
                 />
             }
-            <Plus>
+            <Plus
+                onPress={this.state.f_remove.bind(this, this.state.id)}
+            >
                 <Icon name="ios-close-circle-outline" size={30} color={COLORS.WHITE}/>
             </Plus>
         </Container>

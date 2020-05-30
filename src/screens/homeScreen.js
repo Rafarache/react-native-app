@@ -9,12 +9,21 @@ import {ScreenContainer} from '../themes/screen'
 import ToDo_Month from '../components/ToDo/toDo_Month'
 import MonthSelector from '../components/MonthSelector/monthSelector'
 
+
+//  CONTEXT
+import {ContextProvider} from '../context/context'
+
 //  ASYNC STORAGE
 //
+
 
 //  SCRIPTS
 import {generateMonthToDo} from '../script/generateMonthToDo'
 import {validChangeMonth} from '../script/validChangeMonth'
+import { add } from 'react-native-reanimated';
+
+//  CONTEXT
+let Context = React.createContext();
 
 export default class HomeScreen extends Component {
 
@@ -25,11 +34,15 @@ export default class HomeScreen extends Component {
             month: 0
         };
         this.handleChangeMonth = this.handleChangeMonth.bind(this)
+        this.handleAddToDo = this.handleAddToDo.bind(this)
+        this.handleRemoveToDo = this.handleRemoveToDo.bind(this)
+
+
     }
 
     componentWillMount() {
         ///this.load('@ToDo')
-        this.setState({toDo: [{name: 'asas', id:1, status:true, day:1, month:2},{name: 'asas', id:2, status:true, day:0, month: 1}]})
+        this.setState({toDo: [{name: 'asas', id:1, status:true, day:1, month:2},{name: 'asas', id:2, status:true, day:0, month: 4}]})
         //  Set initial month as the users calendar current month
         let today = new Date();
         let month =  parseInt(today.getMonth())
@@ -61,17 +74,35 @@ export default class HomeScreen extends Component {
         }
     }
 
+    handleAddToDo(toDo) {
+        let newToDo = this.state.toDo
+        newToDo.push(toDo)
+    }
+
+    handleRemoveToDo(toDo_id) {
+        let newToDo = this.state.toDo
+        newToDo = newToDo.filter(function(item) {
+            return item.id != toDo_id
+        })
+        console.log(newToDo)
+        this.setState({toDo: newToDo})
+    }
+
     render () {
-        console.log(this.state.month)
         return (
             <ScreenContainer >
-                <MonthSelector 
-                    month={this.state.month}
-                    handleChangeMonth={this.handleChangeMonth}
-                />
-                <ToDo_Month
-                    month={generateMonthToDo(this.state.month,this.state.toDo)}
-                />
+                <ContextProvider
+                    handleAddToDo={this.handleAddToDo}
+                    handleRemoveToDo={this.handleRemoveToDo}
+                >
+                    <MonthSelector 
+                        month={this.state.month}
+                        handleChangeMonth={this.handleChangeMonth}
+                    />
+                    <ToDo_Month
+                        month={generateMonthToDo(this.state.month,this.state.toDo)}
+                    />
+                </ContextProvider>
             </ScreenContainer>
             );
         }
