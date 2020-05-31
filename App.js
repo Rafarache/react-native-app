@@ -13,7 +13,7 @@ import SettingsScreen from './src/screens/settingsScreen';
 
 //  ASYNC STORAGE
 import { AsyncStorage } from 'react-native';
-import SaveData from './src/async-storage/_storeData'
+import StoreData from './src/async-storage/_storeData'
 
 const Tab = createBottomTabNavigator();
 
@@ -39,8 +39,9 @@ export default class App extends Component {
 
   //  Inicialize data
   initData() {
-    SaveData._storeData([],'@DailyToDo')
-    SaveData._storeData([],'@ToDo')
+    StoreData._storeData([],'@DailyToDo')
+    StoreData._storeData([],'@ToDo')
+    StoreData._storeData(0,'@ToDo_Counter')
   }
 
   render () {

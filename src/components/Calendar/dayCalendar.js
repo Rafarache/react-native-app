@@ -20,7 +20,7 @@ const Container = styled.TouchableOpacity`
     align-items: center;
     background-color: ${props => props.color};
     border-radius: 10px;
-    border-width: ${props => props.border};
+    border-width: ${props => props.border}px;
     border-color: ${COLORS.BLACK};
 `;
 

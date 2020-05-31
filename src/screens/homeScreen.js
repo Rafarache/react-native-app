@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { AsyncStorage} from 'react-native';
 
-//  CONSTANTS
-//
+//  ASYNC STORAGE
+import { AsyncStorage } from 'react-native';
+import StoreData from '../async-storage/_storeData'
 
 //  COMPONENTS
 import {ScreenContainer} from '../themes/screen'
@@ -14,14 +14,9 @@ import Calendar from '../components/Calendar/calendar'
 //  CONTEXT
 import {ContextProvider} from '../context/context'
 
-//  ASYNC STORAGE
-//
-
-
 //  SCRIPTS
 import {generateMonthToDo} from '../script/generateMonthToDo'
 import {validChangeMonth} from '../script/validChangeMonth'
-import { add } from 'react-native-reanimated';
 
 //  CONTEXT
 let Context = React.createContext();
@@ -45,11 +40,11 @@ export default class HomeScreen extends Component {
     }
 
     componentDidUpdate() {
-        console.log(this.state.toDo)
+        StoreData._storeData(this.state.toDo,'@ToDo')
     }
 
     componentWillMount() {
-        ///this.load('@ToDo')
+        this.load()
         //  Set initial month as the users calendar current month
         let today = new Date();
         let month =  parseInt(today.getMonth())
@@ -57,12 +52,26 @@ export default class HomeScreen extends Component {
     }
 
     //  Load data
-    load = async (key) => {
+    load = async () => {
         try {
-            const item = await AsyncStorage.getItem(key)
+            let item = await AsyncStorage.getItem('@ToDo')
             if (item !== null) {
+                item = JSON.parse(item)
                 this.setState({
                     toDo: item
+                })
+            }
+            console.log(this.state)
+        } catch (e) {
+          console.error('Failed to load .')
+        }
+        try {
+            let item = await AsyncStorage.getItem('@ToDo_Counter')
+            if (item !== null) {
+                item = JSON.parse(item)
+                console.log(item)
+                this.setState({
+                    counter: item
                 })
 
             }
@@ -86,7 +95,10 @@ export default class HomeScreen extends Component {
         let newToDo = this.state.toDo
         newToDo.push(toDo)
         this.setState({toDo: newToDo})
+        StoreData._storeData(this.state.counter + 1,'@ToDo_Counter')
         this.setState({counter: this.state.counter + 1})
+        console.log(this.state.counter)
+        
     }
 
     //  Handle remove toDo
@@ -96,6 +108,7 @@ export default class HomeScreen extends Component {
             return item.id != toDo_id
         })
         this.setState({toDo: newToDo})
+        StoreData._storeData(newToDo,'@ToDo')
     }
 
     //  Handle if the name of a ToDo is being updated

@@ -7,8 +7,7 @@ async function _storeData(value, key) {
   //  Check if the value is not a string
   if (typeof value !== 'string') {
     //  If is not an string, stringify the variable
-    valueSaved = JSON.stringify(value)
-  }
+    valueSaved = JSON.stringify(value)  }
   else {
     //  Else,  keep it as it is
     valueSaved = value

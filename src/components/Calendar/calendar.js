@@ -25,7 +25,6 @@ const Calendar = props => {
     //  Get context
     let value = useContext(Context)
 
-    console.log(props)
     return(
         <Container>
             <FlatList
