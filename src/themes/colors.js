@@ -4,9 +4,13 @@ const COLORS = {
 
   ORANGE_1: '#DF9B6D',
 
+  CALENDAR_STATUS_1: '#FF0000',
+  CALENDAR_STATUS_2: '#FFFF00',
+  CALENDAR_STATUS_3: '#00a200',
+
   BLACK: '#000000',
   WHITE: '#ffffff',
-
+  TRANSPARENT: '#00000000'
 }
   
   export default COLORS;
