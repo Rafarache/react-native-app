@@ -1,28 +1,31 @@
-function findDayColor (tarefas) {
+//  CONSTANTS
+import COLORS from '../themes/colors'
 
-    if (tarefas === undefined){
-        return 0
+function findDayColor (toDo) {
+
+    if (toDo === undefined){
+        return COLORS.TRANSPARENT
     }
-    if (tarefas.length === 0){
-        return 0
+    if (toDo.length === 0){
+        return COLORS.TRANSPARENT
     }
     else {
-        const size = tarefas.length
+        const size = toDo.length
         
         let counter = 0;
         for (let i = size; i--; i!==0){
-            if (tarefas[i].isActive === true){
+            if (toDo[i].status === true){
                 counter ++;
             }
         }
         if ( counter === 0) {
-            return 1;
+            return COLORS.CALENDAR_STATUS_1;
         }
         else if (counter === size){
-            return 3;
+            return COLORS.CALENDAR_STATUS_3;
         }
         else {
-            return 2;
+            return COLORS.CALENDAR_STATUS_2;
         }
     }
 

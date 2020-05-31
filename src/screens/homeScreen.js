@@ -8,6 +8,7 @@ import { AsyncStorage} from 'react-native';
 import {ScreenContainer} from '../themes/screen'
 import ToDo_Month from '../components/ToDo/toDo_Month'
 import MonthSelector from '../components/MonthSelector/monthSelector'
+import Calendar from '../components/Calendar/calendar'
 
 
 //  CONTEXT
@@ -129,6 +130,9 @@ export default class HomeScreen extends Component {
                     getMonth={this.state.month}
                     getCounter={this.state.counter}
                 >
+                    <Calendar
+                        month={generateMonthToDo(this.state.month,this.state.toDo)}
+                    />
                     <MonthSelector 
                         month={this.state.month}
                         handleChangeMonth={this.handleChangeMonth}
@@ -136,6 +140,7 @@ export default class HomeScreen extends Component {
                     <ToDo_Month
                         month={generateMonthToDo(this.state.month,this.state.toDo)}
                     />
+                    
                 </ContextProvider>
             </ScreenContainer>
             );
