@@ -17,6 +17,7 @@ const ToDo_Month = props => {
             <ScrollView
             showsVerticalScrollIndicator={false}
             >
+                {/* List of Days's */}
                 <FlatList
                 keyExtractor={(item) => item.id.toString()}
                 data={props.month.days}

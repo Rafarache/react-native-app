@@ -43,6 +43,7 @@ const Plus = styled.TouchableOpacity`
 
 const ToDo_Day = props => {
 
+    //  Get context
     let value = useContext(Context)
 
     return (
