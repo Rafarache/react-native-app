@@ -96,9 +96,7 @@ export default class HomeScreen extends Component {
         newToDo.push(toDo)
         this.setState({toDo: newToDo})
         StoreData._storeData(this.state.counter + 1,'@ToDo_Counter')
-        this.setState({counter: this.state.counter + 1})
-        console.log(this.state.counter)
-        
+        this.setState({counter: this.state.counter + 1})        
     }
 
     //  Handle remove toDo
