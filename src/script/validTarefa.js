@@ -6,7 +6,6 @@ function  validTarefa (props,have_alert) {
     if (props.name.length === 0) {
         if(have_alert === true){
             alert("No tarefa my bro");
-            console.log("entre")            
         }
         return false
     }
