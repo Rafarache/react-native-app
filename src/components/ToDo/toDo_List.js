@@ -25,7 +25,7 @@ const ToDo_List = props => {
         <Container>
             {/* List of ToDo's */}
             <FlatList
-            keyExtractor={(item, index) => item.id.toString()}
+            keyExtractor={(item) => item.id.toString()}
             data={props.toDo_Array}
             ItemSeparatorComponent={Separator}
             renderItem={({item}) =>

@@ -51,7 +51,7 @@ const ToDo_Day = props => {
             <Number>{(props.id + 1).toString()}</Number>
             <Week>{props.name}</Week>
             <Plus
-              onPress={value.handleAddToDo.bind(this, {name: 'asas', id:value.getCounter, status:false, day:props.id, month:value.getMonth})}  
+              onPress={value.handleAddToDo.bind(this, {name: '', id:value.getCounter, status:false, day:props.id, month:value.getMonth})}  
             >
                 <Icon name="ios-add-circle-outline" size={30} color={COLORS.WHITE}/>
             </Plus>

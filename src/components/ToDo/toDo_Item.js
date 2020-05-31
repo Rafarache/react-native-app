@@ -11,7 +11,6 @@ import {Context} from '../../context/context'
 // STYLED COMPONENTS
 const Container = styled.View`
 
-    width: 100%;
     display: flex;
     flex-direction: row;
 `;
@@ -68,16 +67,23 @@ export default class ToDo_Item extends Component {
             isEditig: false,
 
             f_remove: null,
-            f_rename: null
+            f_rename: null,
+            f_changeStatus: null
         };
     }
 
-    //  Get handle functions drom context
+    
     static contextType = Context;
     componentWillMount(){
+        //  Get handle functions from context
         const value = this.context;
         this.setState({f_remove : value.handleRemoveToDo})
         this.setState({f_rename: value.handleRenameToDo})
+        this.setState({f_changeStatus: value.handleChangeStatusToDo})
+
+        if(this.state.name === '') {
+            this.setState({isEditig: true})
+        }
       }
 
     setIsEditing = (bool) => {
@@ -94,12 +100,19 @@ export default class ToDo_Item extends Component {
     handleSubmit = () => {
         this.setState({ name: name })
     }
+
+    handleTick = () => {
+        this.setState({ status: !this.state.status })
+        this.state.f_changeStatus(this.state.id)
+    }
     
     render () {
         
         return (
         <Container>
-            <Tick>
+            <Tick
+                onPress={this.handleTick}
+            >
                 {/* If status is true print tick, else dont print */}
                 {this.state.status? 
                     <Tick_Text>✓</Tick_Text>

@@ -40,6 +40,7 @@ export default class HomeScreen extends Component {
         this.handleAddToDo = this.handleAddToDo.bind(this)
         this.handleRemoveToDo = this.handleRemoveToDo.bind(this)
         this.handleRenameToDo = this.handleRenameToDo.bind(this)
+        this.handleChangeStatusToDo = this.handleChangeStatusToDo.bind(this)
     }
 
     componentDidUpdate() {
@@ -107,6 +108,16 @@ export default class HomeScreen extends Component {
         this.setState({toDo: updateToDo})
     }
 
+    handleChangeStatusToDo(id) {
+        let updateToDo = this.state.toDo.filter(function(item) {
+            if (item.id == id) {
+                item.status = !item.status
+            }
+            return item
+        })
+        this.setState({toDo: updateToDo})
+    }
+
     render () {
         return (
             <ScreenContainer >
@@ -114,6 +125,7 @@ export default class HomeScreen extends Component {
                     handleAddToDo={this.handleAddToDo}
                     handleRemoveToDo={this.handleRemoveToDo}
                     handleRenameToDo={this.handleRenameToDo}
+                    handleChangeStatusToDo={this.handleChangeStatusToDo}
                     getMonth={this.state.month}
                     getCounter={this.state.counter}
                 >
