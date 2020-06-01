@@ -41,7 +41,7 @@ Para executar o projeto basta estar na pasta do repositório e executar
 ```
 expo start
 ```
-Em seguida, será aberto no seu navegador padão uma aba na porta http://localhost:19002/<br/>
+Em seguida, será aberto no seu navegador padrão uma aba na porta http://localhost:19002/<br/>
 O app pode rodar no seu próprio celular ou em um emulador no computador.<br/>
 No celular basta baixar o aplicativo Expo na Play Store e pegar o QRCODE da aba aberta no navegador. O dowload do App será em seguida feito.<br/>
 
