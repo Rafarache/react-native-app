@@ -7,6 +7,7 @@ import StoreData from '../async-storage/_storeData'
 //  COMPONENTS
 import {ScreenContainer} from '../themes/screen'
 import ToDo_List from '../components/ToDo/toDo_List'
+import AddButton from '../components/AddButton/addButton'
 
 
 //  CONTEXT
@@ -120,7 +121,12 @@ export default class DailyScreen extends Component {
                     getMonth={this.state.month}
                     getCounter={this.state.counter}
                 >
-                    <ToDo_List toDo_Array={this.state.toDo} />
+                    {this.state.toDo.length === 0?
+                        null:
+                        <ToDo_List toDo_Array={this.state.toDo} />
+                    }
+                    
+                    <AddButton />
                 </ContextProvider>
             </ScreenContainer>
             );
