@@ -20,7 +20,7 @@ const Button = styled.TouchableOpacity`
 
     background-color: ${COLORS.GREEN_1};
     padding: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     border-radius: 13px;
     width: 100px;
     display: flex;
