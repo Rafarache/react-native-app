@@ -19,7 +19,9 @@ export default class DailyScreen extends Component {
         super();
         this.state = {
             toDo: [],
-            counter: 0
+            counter: 0,
+            month : 0,
+            day: 0,
         };
 
         //  Bind handle functions
@@ -31,17 +33,24 @@ export default class DailyScreen extends Component {
 
     componentDidUpdate() {
         StoreData._storeData(this.state.toDo,'@DailyToDo')
+        console.log(this.state)
     }
 
     componentWillMount() {
         this.load()
-        //  Set initial month as the users calendar current month
         let today = new Date();
+        this.setState({date: today})
         let month =  parseInt(today.getMonth())
         this.setState({month: month})
+        let day =  parseInt(today.getDate() - 1)
+        this.setState({day: day})
+        // Reset status if its a new day
+        if (this.checkNewDay() === false) {
+            this.resetToDoStatus()
+        }
     }
 
-    //  Load data
+    //  Load data used in component
     load = async () => {
         try {
             let item = await AsyncStorage.getItem('@DailyToDo')
@@ -51,7 +60,6 @@ export default class DailyScreen extends Component {
                     toDo: item
                 })
             }
-            console.log(this.state)
         } catch (e) {
           console.error('Failed to load .')
         }
@@ -69,10 +77,40 @@ export default class DailyScreen extends Component {
           console.error('Failed to load .')
         }
     }
-    
+
+
+    resetToDoStatus() {
+        let updateToDo = this.state.toDo.map(function(item) {
+            item.status = false
+            return item
+        })
+        this.setState({toDo: updateToDo})
+    }
+
+    // Check if there is an toDo task already checked today
+    checkNewDay() {
+        let flag = false
+        let date = this.state.date
+        this.state.toDo.forEach(function(item, index) {
+            if(item.completedDates.length !== 0) {
+                if(item.completedDates.slice(-1)[0].getDate === date.getDate && item.completedDates.slice(-1)[0].getMonth === date.getMonth) {
+                    flag = true;
+                }
+            }
+        });
+        
+        return flag
+    }
+
     //  Handle add new ToDo
     handleAddToDo(toDo) {
         let newToDo = this.state.toDo
+        // Delete day and month prooerty, witch wont be used
+        delete toDo.day
+        delete toDo.month
+        // Add CompletedDates array property
+        // This property stores the days the task was done
+        toDo.completedDates = []
         newToDo.push(toDo)
         this.setState({toDo: newToDo})
         StoreData._storeData(this.state.counter + 1,'@ToDo_Counter')
@@ -100,10 +138,18 @@ export default class DailyScreen extends Component {
         this.setState({toDo: updateToDo})
     }
 
+    //  Handle if the toDo being checked or unchecked
     handleChangeStatusToDo(id) {
         let updateToDo = this.state.toDo.filter(function(item) {
             if (item.id == id) {
                 item.status = !item.status
+                let today = new Date
+                if (item.status){
+                    item.completedDates.push(today)                    
+                }
+                else {
+                    item.completedDates.pop()
+                }
             }
             return item
         })
