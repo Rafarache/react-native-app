@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 
-import { Text, View } from 'react-native';
+// COMPONENTS
+import {ScreenContainer} from '../themes/screen'
+import Button from '../components/Button/button'
+
+// SCRIPTS
+import ClearData from '../async-storage/_clearData'
+
 
 export default class SettingScreen extends Component {
 
@@ -9,13 +15,21 @@ export default class SettingScreen extends Component {
         this.state = {
         };
     }
-
+    
+    clearData() {
+        ClearData._clearData()
+    }
 
     render () {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Setting_Screen</Text>
-        </View>
+        <ScreenContainer>
+            <Button 
+                onPress={this.clearData}
+                title={"Clear Data"}
+                description={"If you press this button, all ToDo's made will be reset."}
+                icon={"ios-trash"}
+            />
+        </ScreenContainer>
         );
     }
 }
