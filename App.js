@@ -10,6 +10,7 @@ import COLORS from './src/themes/colors'
 //  SCREENS
 import HomeScreen from './src/screens/homeScreen';
 import SettingsScreen from './src/screens/settingsScreen';
+import DailyScreen from './src/screens/dailyScreen';
 
 //  ASYNC STORAGE
 import { AsyncStorage } from 'react-native';
@@ -57,8 +58,10 @@ export default class App extends Component {
                 iconName = focused
                   ? 'ios-information-circle'
                   : 'ios-information-circle-outline';
+              } else if (route.name === 'Daily') {
+                iconName = focused ? 'ios-list-box' : 'ios-list';        
               } else if (route.name === 'Settings') {
-                iconName = focused ? 'ios-list-box' : 'ios-list';
+                iconName = 'ios-settings';
               }
 
               return <Ionicons name={iconName} size={size} color={color} />;
@@ -70,6 +73,7 @@ export default class App extends Component {
           }}
         >
           <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Daily" component={DailyScreen} />
           <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
       </NavigationContainer>

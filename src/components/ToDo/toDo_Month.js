@@ -7,8 +7,7 @@ import ToDo_Day from './toDo_Day'
 
 // STYLED COMPONENTS
 const Container = styled.View`
-
-    height: 58%;
+    flex:1;
 `;
 
 const ToDo_Month = props => {
